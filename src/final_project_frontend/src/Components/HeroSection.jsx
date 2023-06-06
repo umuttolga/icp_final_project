@@ -16,11 +16,11 @@ const HeroSection = ({ currentProposal }) => {
     return (
         <div className="md:mt-10 mb-10 md:grid  md:place-items-center ">
             <div className="hidden md:flex">
-                <div className="absolute  right-0 bottom-[10vh]  -z-30 ">
-                    <BgTopSvg height={"1100"} width={"950"} />
+                <div className="absolute  right-0 bottom-[50%] -z-30 ">
+                    <BgTopSvg height={"1100"} width={"900"} />
                 </div>
-                <div className="absolute  -left-[20vw] bottom-[10vh]  -z-30 ">
-                    <BgTopSvg height={"1100"} width={"1500"} />
+                <div className="absolute  -left-[20vw] bottom-[50%] -z-30 ">
+                    <BgTopSvg height={"1100"} width={"1400"} />
                 </div>
 
             </div>

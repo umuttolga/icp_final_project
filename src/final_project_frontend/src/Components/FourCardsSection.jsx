@@ -1,6 +1,43 @@
 import React from 'react'
 import { final_project_backend } from '../../../declarations/final_project_backend'
 import { useState, useEffect } from "react"
+import ProposalListItems from './Utilities/ProposalListItems'
+const DUMMY_PROPOSAL_LIST = [
+    {
+        description: "Proposal - 1",
+        approve: 5,
+        reject: 3,
+        pass: 7,
+
+    },
+    {
+        description: "Proposal - 2",
+        approve: 5,
+        reject: 2,
+        pass: 1,
+
+    },
+    {
+        description: "Proposal - 3",
+        approve: 6,
+        reject: 2,
+        pass: 6,
+
+    }, {
+        description: "Proposal - 4",
+        approve: 9,
+        reject: 0,
+        pass: 1,
+
+    },
+    {
+        description: "Proposal - 5",
+        approve: 5,
+        reject: 3,
+        pass: 7,
+
+    }
+]
 const FourCardsSection = ({ proposalList }) => {
     const [proposals, setProposals] = useState()
     // Styles 
@@ -18,12 +55,10 @@ const FourCardsSection = ({ proposalList }) => {
     // }, [])
 
     return (
-        <div className="mt-4 md:mt-10 p-4">
-            <div className="grid gap-y-[10vw] place-items-center">
-                <div className={rowStyle}>
-                    Proposal List
-                </div>
-            </div>
+        <div className="mt-4 p-4">
+            {DUMMY_PROPOSAL_LIST.map((item, index) => (
+                <ProposalListItems proposal={item} />
+            ))}
         </div>
     )
 }

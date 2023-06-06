@@ -16,7 +16,7 @@ type Result =
 
 service : {
     "get_current_proposal": () -> (Proposal) query;
-    "get_current_proposal_list": () -> (vec Proposal) query;
+    "get_proposal_list": () -> (vec Proposal) query;
     "get_proposal": (nat32) -> (Proposal) query;
     "get_current_proposal_count": () -> (nat32) query;
     "get_owner": () -> (principal) query;

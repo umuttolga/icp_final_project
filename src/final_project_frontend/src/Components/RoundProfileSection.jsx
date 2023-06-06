@@ -19,8 +19,8 @@ const RoundProfileSection = ({ pp, text }) => {
     // Styles
     const textStyle = "text-white text-[18px] p-4 grid place-items-center gap-y-4 mt-4"
     const inputStyle = "flex justify-around "
-    const inputText = "w-[50vw] p-4 border-2 border-white  rounded-xl text-white bg-transparent"
-    const buttonStyle = " rounded-full bg-gradient-to-r  bg-gradient-to-l from-[#3C91E6] to-[#83079C] text-white font-mono font-medium grid place-items-center flex-nowrap cursor-pointer  w-[15vw] text-[20px] p-4"
+    const inputText = "w-[50vw] p-4 border-2 border-white backdrop-blur focus:border-4  rounded-xl text-white bg-transparent"
+    const buttonStyle = " rounded-full bg-gradient-to-r  hover:bg-gradient-to-l bg-gradient-to-l from-[#3C91E6] to-[#83079C] text-white font-mono font-medium grid place-items-center flex-nowrap cursor-pointer  w-[15vw] text-[20px] p-4"
     return (
         <div className="mt-4 md:mt-10  w-full">
             <div className=" ">
