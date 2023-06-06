@@ -195,7 +195,11 @@ fn impl_vote(
 fn get_current_proposal() -> Proposal {
     STATE.with(|_state| {
         let state = &mut _state.borrow();
-        state.proposal_list[state.counter as usize - 1].clone()
+        if state.counter == 0 {
+            Proposal::default()
+        } else {
+            state.proposal_list[state.counter as usize - 1].clone()
+        }
     })
 }
 
