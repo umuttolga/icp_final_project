@@ -17,7 +17,7 @@ module.exports = {
   entry: {
     // The frontend.entrypoint points to the HTML file for this build, so we need
     // to replace the extension to `.js`.
-    index: path.join(__dirname, frontend_entry).replace(/\.html$/, ".js"),
+    index: path.join(__dirname, frontend_entry).replace(/\.html$/, ".jsx"),
   },
   devtool: isDevelopment ? "source-map" : false,
   optimization: {
@@ -32,6 +32,7 @@ module.exports = {
       events: require.resolve("events/"),
       stream: require.resolve("stream-browserify/"),
       util: require.resolve("util/"),
+      crypto: require.resolve("crypto-browserify") ,
     },
   },
   output: {
@@ -50,6 +51,22 @@ module.exports = {
   //    { test: /\.css$/, use: ['style-loader','css-loader'] }
   //  ]
   // },
+  module: {
+    rules: [
+      { test: /\.(js|ts)x?$/, loader: "ts-loader" },{
+        test: /\.css$/,
+        use: [
+          'style-loader',
+          'css-loader',
+          'postcss-loader',
+        ],
+      },
+      {
+        test: /\.(png|svg|jpg|jpeg|gif)$/i,
+        type: 'asset/resource',
+      },
+    ]
+  },
   plugins: [
     new HtmlWebpackPlugin({
       template: path.join(__dirname, frontend_entry),

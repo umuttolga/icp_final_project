@@ -1,3 +1,27 @@
+type Proposal =
+    record {
+        description: text;
+        approve: nat32;
+        reject: nat32;
+        pass: nat32;
+        is_active: bool;
+        voted: vec principal;
+    };
+
+type Result =
+  variant {
+    Ok: text;
+    Err: text;
+  };
+
 service : {
-    "greet": (text) -> (text) query;
-}
+    "get_current_proposal": () -> (Proposal) query;
+    "get_current_proposal_list": () -> (vec Proposal) query;
+    "get_proposal": (nat32) -> (Proposal) query;
+    "get_current_proposal_count": () -> (nat32) query;
+    "get_owner": () -> (principal) query;
+    "create_proposal": (text) -> ();
+    "edit_proposal_description": (text) -> ();
+    "end_proposal": (nat32) -> (Result);
+    "vote": (nat32, nat32) -> (Result);
+};
