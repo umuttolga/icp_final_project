@@ -170,6 +170,12 @@ fn impl_vote(
     choice: u32,
     caller: candid::Principal,
 ) -> Result<String, String> {
+    if proposal_id >= state.proposal_list.len() {
+        return Err(format!(
+            "Proposal id {} is not valid. There are only {} proposals.",
+            proposal_id, state.proposal_list.len()
+        ));
+    }
     if state.proposal_list[proposal_id].voted.contains(&caller) {
         Err(format!(
             "Principal {} has already for proposal with id {}",

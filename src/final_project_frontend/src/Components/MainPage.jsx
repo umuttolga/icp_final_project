@@ -52,7 +52,7 @@ const MainPage = () => {
             </div>
             {/* <div className={divider}></div> */}
             <div className="bg-black">
-                <img className="absolute top-[50%] object-contain  -z-40" src={bgImg} alt="bg img" />
+                <img className="absolute top-[80%] object-contain  -z-40" src={bgImg} alt="bg img" />
             </div>
             <FourCardsSection />
         </div>

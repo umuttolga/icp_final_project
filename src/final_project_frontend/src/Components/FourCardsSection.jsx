@@ -45,19 +45,21 @@ const FourCardsSection = ({ proposalList }) => {
     const rowStyle = "grid grid-flow-col gap-[10vw]"
 
 
-    // const getProposals = async () => {
-    //     const getCurrentProposals = await final_project_backend.get_current_proposal_list()
-    //     setProposals(getCurrentProposals)
-    // }
+    const getProposals = async () => {
+        const getCurrentProposals = await final_project_backend.get_proposal_list()
+        setProposals(getCurrentProposals)
+    }
 
-    // useEffect(() => {
-    //     getProposals()
-    // }, [])
-
+    useEffect(() => {
+        getProposals()
+    }, [])
+    console.log("PROPOSAL" + proposals)
     return (
-        <div className="mt-4 p-4">
-            {DUMMY_PROPOSAL_LIST.map((item, index) => (
-                <ProposalListItems proposal={item} />
+        <div className="mt-4 p-4 lg:md:grid lg:md:grid-cols-3 lg:md:gap-2 lg:md:place-items-center gap-y-12 lg:md:grid-rows-auto">
+            {proposals?.reverse().map((item, index) => (
+                <div key={index} className="flex-1">
+                    <ProposalListItems index={proposals.length - 1 - index} proposal={item} />
+                </div>
             ))}
         </div>
     )
