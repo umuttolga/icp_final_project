@@ -53,7 +53,6 @@ const FourCardsSection = ({ proposalList }) => {
     useEffect(() => {
         getProposals()
     }, [])
-    console.log("PROPOSAL" + proposals)
     return (
         <div className="mt-4 p-4 lg:md:grid lg:md:grid-cols-3 lg:md:gap-2 lg:md:place-items-center gap-y-12 lg:md:grid-rows-auto">
             {proposals?.reverse().map((item, index) => (

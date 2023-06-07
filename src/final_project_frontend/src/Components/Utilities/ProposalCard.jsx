@@ -1,10 +1,15 @@
 import React, { useState, useEffect } from 'react'
 import Card from './Card'
 import { final_project_backend } from '../../../../declarations/final_project_backend'
+import { Principal } from '@dfinity/principal';
+import { Actor, HttpAgent } from "@dfinity/agent";
+import { idlFactory as vote_idl, canisterId as vote_id } from '../../../../declarations/final_project_backend'
 const ProposalCard = ({ proposal }) => {
     const [loading, setLoading] = useState(true)
     const [voting, setVoting] = useState(false)
+    const [clicked, setClicked] = useState(false)
     const [count, setCount] = useState()
+    const [myCanister, setMyCanister] = useState()
 
     useEffect(() => {
         if (proposal) {
@@ -45,17 +50,36 @@ const ProposalCard = ({ proposal }) => {
             const count = await final_project_backend.get_current_proposal_count()
             setCount(count)
         }
+        handleLogin()
         getProposalCount()
     }, [])
 
-    console.log(proposal)
     const handleVote = async (voteId) => {
+        if (!myCanister) {
+            console.error("Not logged in");
+            return;
+        }
+
         setVoting(true)
-        const vote = await final_project_backend.vote(count - 1, voteId)
-        window.location.reload()
+        await myCanister.vote(count - 1, voteId)
         setVoting(false)
     }
+
+
+
+
+
+
+    const handleLogin = () => {
+        const randomPrincipal = Principal.anonymous()
+        const agent = new HttpAgent({ Principal: randomPrincipal });
+        const vote = Actor.createActor(vote_idl, { agent, canisterId: vote_id });
+        setMyCanister(vote)
+        // window.location.reload()
+    }
     console.log(count)
+
+
     return (
         <Card cardStyle={customCard}>
             {loading ? <span>Loading..</span> :
@@ -72,7 +96,6 @@ const ProposalCard = ({ proposal }) => {
                     </div>
                 </div>
                 )}
-
         </Card>
     )
 }

@@ -46,7 +46,6 @@ const ProposalListItems = ({ proposal, index }) => {
         window.location.reload()
         setVoting(false)
     }
-    console.warn(approveBarStyle)
     return (
         <div>
             <Card cardStyle={customCard}>
