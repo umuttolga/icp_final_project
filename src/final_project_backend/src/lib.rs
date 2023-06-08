@@ -19,20 +19,20 @@ fn pre_upgrade() {
     });
 }
 
-// #[post_upgrade]
-// fn post_upgrade() {
-//     let (proposal_list, counter, owner): (Vec<Proposal>, u32, candid::Principal) =
-//         ic_cdk::storage::stable_restore().unwrap();
-//     let state = State {
-//         proposal_list,
-//         counter,
-//         owner,
-//     };
+#[post_upgrade]
+fn post_upgrade() {
+    let (proposal_list, counter, owner): (Vec<Proposal>, u32, candid::Principal) =
+        ic_cdk::storage::stable_restore().unwrap();
+    let state = State {
+        proposal_list,
+        counter,
+        owner,
+    };
 
-//     STATE.with(|_state| {
-//         *_state.borrow_mut() = state;
-//     });
-// }
+    STATE.with(|_state| {
+        *_state.borrow_mut() = state;
+    });
+}
 
 #[derive(candid::CandidType, Clone, Serialize, Deserialize)]
 struct State {
@@ -173,7 +173,8 @@ fn impl_vote(
     if proposal_id >= state.proposal_list.len() {
         return Err(format!(
             "Proposal id {} is not valid. There are only {} proposals.",
-            proposal_id, state.proposal_list.len()
+            proposal_id,
+            state.proposal_list.len()
         ));
     }
     if state.proposal_list[proposal_id].voted.contains(&caller) {
