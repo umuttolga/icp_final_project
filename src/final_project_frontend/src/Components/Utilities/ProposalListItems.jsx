@@ -12,7 +12,7 @@ const ProposalListItems = ({ proposal, index }) => {
         }
     }, [proposal])
     // Styles
-    const customCard = "p-4 lg:w-[40rem]  backdrop-blur grid text-[#FFFCFF] items-center bg-transparent"
+    const customCard = "p-4  w-[27rem]  backdrop-blur grid text-[#FFFCFF] items-center bg-transparent"
     const descStyle = "text-[40px] font-roboto "
     const cardContainer = "grid grid-flow-rows ml-4 text-[20px] gap-y-4 font-roboto text-white"
     const approveStyle = " text-green font-bold relative"

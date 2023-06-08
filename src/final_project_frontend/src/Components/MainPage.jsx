@@ -44,17 +44,22 @@ const MainPage = () => {
         <div className={container}>
             <div className="h-full absolute -z-50 w-screen bg-black"></div>
             <NavBar />
-            <HeroSection currentProposal={currentProposal} />
-            <div className={divider}></div>
-            <div className="">
-                <RoundProfileSection />
+            <div className="mx-[12%]">
+                <HeroSection currentProposal={currentProposal} />
+                <div className={divider}></div>
+                <div className="">
+                    <RoundProfileSection />
 
+                </div>
+                {/* <div className={divider}></div> */}
+                <div className="gird place-items-center">
+
+                    <FourCardsSection />
+                </div>
             </div>
-            {/* <div className={divider}></div> */}
             <div className="bg-black">
                 <img className="absolute top-[80%] object-contain  -z-40" src={bgImg} alt="bg img" />
             </div>
-            <FourCardsSection />
         </div>
     )
 }
