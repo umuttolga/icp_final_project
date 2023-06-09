@@ -7,17 +7,7 @@ thread_local! {
     static STATE: RefCell<State> = RefCell::default();
 }
 
-#[pre_upgrade]
-fn pre_upgrade() {
-    STATE.with(|_state| {
-        ic_cdk::storage::stable_save((
-            &_state.borrow().proposal_list,
-            &_state.borrow().counter,
-            &_state.borrow().owner,
-        ))
-        .unwrap();
-    });
-}
+
 
 #[post_upgrade]
 fn post_upgrade() {

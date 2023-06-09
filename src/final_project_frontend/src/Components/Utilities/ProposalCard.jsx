@@ -72,10 +72,10 @@ const ProposalCard = ({ proposal }) => {
     // window.location.reload();
     setVoting(false);
   };
-  console.log(count);
+  console.log(proposal.description);
   return (
     <Card cardStyle={customCard}>
-      {loading ? (
+      {loading || proposal.description === "Empty" ? (
         <div className="grid place-items-center">
           <Loader />
         </div>
