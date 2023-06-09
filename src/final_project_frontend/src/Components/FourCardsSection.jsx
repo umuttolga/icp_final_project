@@ -54,9 +54,9 @@ const FourCardsSection = ({ proposalList }) => {
         getProposals()
     }, [])
     return (
-        <div className="mt-4 p-4 md:flex md:flex-wrap  gap-y-5">
+        <div className="mt-4 p-4 grid md:grid-cols-3 grid-cols-2  gap-5">
             {proposals?.reverse().map((item, index) => (
-                <div key={index} className="flex-1 ">
+                <div key={index} className="">
                     <ProposalListItems index={proposals.length - 1 - index} proposal={item} />
                 </div>
             ))}

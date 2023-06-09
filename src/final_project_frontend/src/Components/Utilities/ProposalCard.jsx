@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Card from "./Card";
 import { final_project_backend } from "../../../../declarations/final_project_backend";
+import Loader from "./Loader";
 const ProposalCard = ({ proposal }) => {
   const [loading, setLoading] = useState(true);
   const [voting, setVoting] = useState(false);
@@ -18,9 +19,9 @@ const ProposalCard = ({ proposal }) => {
   const descStyle = "text-[40px] font-roboto ";
   const cardContainer =
     "grid grid-flow-rows ml-4 text-[20px] gap-y-4 font-roboto text-white";
-  const approveStyle = " text-green font-bold relative";
-  const passStyle = "text-yellow font-bold relative";
-  const rejectStyle = "text-red font-bold relative";
+  const approveStyle = " text-[#8cb369] font-bold relative";
+  const passStyle = "text-[#ffbd00] font-bold relative";
+  const rejectStyle = "text-[#ff0054] font-bold relative";
 
   // Calculate total votes and percentages
   const totalVotes = proposal
@@ -44,9 +45,9 @@ const ProposalCard = ({ proposal }) => {
   };
 
   // Use the function to generate style objects
-  const approveBarStyle = getBarStyle("green", approvePercent);
-  const rejectBarStyle = getBarStyle("red", rejectPercent);
-  const passBarStyle = getBarStyle("yellow", passPercent);
+  const approveBarStyle = getBarStyle("#8cb369", Math.ceil(approvePercent));
+  const rejectBarStyle = getBarStyle("#ff0054", Math.ceil(rejectPercent));
+  const passBarStyle = getBarStyle("#ffbd00", Math.ceil(passPercent));
 
   useEffect(() => {
     const getProposalCount = async () => {
@@ -75,7 +76,9 @@ const ProposalCard = ({ proposal }) => {
   return (
     <Card cardStyle={customCard}>
       {loading ? (
-        <span>Loading..</span>
+        <div className="grid place-items-center">
+          <Loader />
+        </div>
       ) : (
         <div className={cardContainer}>
           <span className={descStyle}>{proposal.description}</span>
@@ -85,7 +88,7 @@ const ProposalCard = ({ proposal }) => {
               {proposal.approve}{" "}
               <span
                 onClick={async () => await handleVote(1)}
-                className="text-white cursor-pointer hover:text-green absolute left-[3.5rem]"
+                className="text-white cursor-pointer hover:text-[#8cb369] absolute left-[3.5rem]"
               >
                 {voting ? "Voting..." : "Vote"}
               </span>
@@ -97,7 +100,7 @@ const ProposalCard = ({ proposal }) => {
               {proposal.reject}{" "}
               <span
                 onClick={async () => await handleVote(2)}
-                className="text-white cursor-pointer hover:text-red absolute left-[5rem]"
+                className="text-white cursor-pointer hover:text-[#ff0054] absolute left-[5rem]"
               >
                 {voting ? "Voting..." : "Vote"}
               </span>
@@ -109,7 +112,7 @@ const ProposalCard = ({ proposal }) => {
               {proposal.pass}{" "}
               <span
                 onClick={async () => await handleVote(3)}
-                className="text-white cursor-pointer hover:text-yellow absolute left-[6rem]"
+                className="text-white cursor-pointer hover:text-[#ffbd00] absolute left-[6rem]"
               >
                 {voting ? "Voting..." : "Vote"}
               </span>

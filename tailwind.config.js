@@ -12,6 +12,9 @@ module.exports = {
         "red": "#C1292E",
         "purple": "#7E3F8F",
       },
+      animation: {
+        'rotate': 'rotate 3s linear infinite',
+      }
     },
     
   },
