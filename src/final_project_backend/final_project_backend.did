@@ -6,6 +6,13 @@ type Proposal =
         pass: nat32;
         is_active: bool;
         voted: vec principal;
+        owner: principal
+    };
+
+type CreateProposal =
+    record {
+        description: text;
+        is_active: bool;
     };
 
 type Result =
@@ -15,13 +22,10 @@ type Result =
   };
 
 service : {
-    "get_current_proposal": () -> (Proposal) query;
-    "get_proposal_list": () -> (vec Proposal) query;
-    "get_proposal": (nat32) -> (Proposal) query;
-    "get_current_proposal_count": () -> (nat32) query;
-    "get_owner": () -> (principal) query;
-    "create_proposal": (text) -> ();
-    "edit_proposal_description": (text) -> ();
-    "end_proposal": (nat32) -> (Result);
-    "vote": (nat32, nat32) -> (Result);
+    "get_proposal": (nat64) -> (opt Proposal) query;
+    "get_proposal_count": () -> (nat64) query;
+    "create_proposal": (nat64, CreateProposal) -> (opt Proposal);
+    "edit_proposal": (nat64, CreateProposal) -> (Result);
+    "end_proposal": (nat64) -> (Result);
+    "vote": (nat64, nat32) -> (Result);
 };

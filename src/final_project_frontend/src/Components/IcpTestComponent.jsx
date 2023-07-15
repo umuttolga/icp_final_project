@@ -29,8 +29,7 @@ const IcpTestComponent = () => {
   const buttonStyle = "border-2 rounded-xl  ml-4 p-2";
 
   async function doGreet() {
-    const createProp = await final_project_backend.get_current_proposal();
-    console.log(createProp);
+    // const createProp = await final_project_backend.get_current_proposal();
   }
 
   return (

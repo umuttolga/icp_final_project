@@ -13,7 +13,7 @@ const ProposalListItems = ({ proposal, index }) => {
     }, [proposal])
     // Styles
     const customCard =
-        "p-4 backdrop-blur grid text-[#FFFCFF] items-center h-auto bg-transparent";
+        "p-2 backdrop-blur w-[35rem] grid text-[#FFFCFF] items-center h-auto bg-transparent";
     const descStyle = "text-[40px] font-roboto ";
     const cardContainer =
         "grid ml-4 text-[20px] gap-y-4 font-roboto text-white";
@@ -24,11 +24,11 @@ const ProposalListItems = ({ proposal, index }) => {
 
     // Calculate total votes and percentages
     const totalVotes = proposal
-        ? proposal.approve + proposal.reject + proposal.pass
+        ? proposal[0].approve + proposal[0].reject + proposal[0].pass
         : 0;
-    const approvePercent = proposal ? (proposal.approve / totalVotes) * 100 : 0;
-    const rejectPercent = proposal ? (proposal.reject / totalVotes) * 100 : 0;
-    const passPercent = proposal ? (proposal.pass / totalVotes) * 100 : 0;
+    const approvePercent = proposal ? (proposal[0].approve / totalVotes) * 100 : 0;
+    const rejectPercent = proposal ? (proposal[0].reject / totalVotes) * 100 : 0;
+    const passPercent = proposal ? (proposal[0].pass / totalVotes) * 100 : 0;
 
     // Vote bar styles
     const voteBarStyle = {
@@ -48,23 +48,28 @@ const ProposalListItems = ({ proposal, index }) => {
 
 
 
-    const handleVote = async (vote) => {
-        setVoting(true)
-        const sendVote = await final_project_backend.vote(index, vote)
-        console.error(sendVote)
-        window.location.reload()
-        setVoting(false)
+    const handleVote = async (voteId) => {
+        console.warn("handle vote section");
+        console.log("inside handle vote");
+        console.log("vote id is " + voteId);
+        setVoting(true);
+        console.log("before vote has called");
+        const vote = await final_project_backend.vote(index, voteId);
+        console.log("after vote has called");
+        console.log(vote);
+        // window.location.reload();
+        setVoting(false);
     }
     return (
         <div>
             <Card cardStyle={customCard}>
                 {loading ? <span>Loading..</span> :
                     (<div className={cardContainer}>
-                        <span className={descStyle}>{proposal.description}</span>
+                        <span className={descStyle}>{proposal[0].description}</span>
                         <span>
                             Approve:{" "}
                             <span className={approveStyle}>
-                                {proposal.approve}{" "}
+                                {proposal[0].approve}{" "}
                                 <span
                                     onClick={async () => await handleVote(1)}
                                     className="text-white cursor-pointer hover:text-[#8cb369] absolute left-[3.5rem]"
@@ -76,7 +81,7 @@ const ProposalListItems = ({ proposal, index }) => {
                         <span>
                             Reject:{" "}
                             <span className={rejectStyle}>
-                                {proposal.reject}{" "}
+                                {proposal[0].reject}{" "}
                                 <span
                                     onClick={async () => await handleVote(2)}
                                     className="text-white cursor-pointer hover:text-[#ff0054] absolute left-[5rem]"
@@ -88,7 +93,7 @@ const ProposalListItems = ({ proposal, index }) => {
                         <span>
                             Pass:{" "}
                             <span className={passStyle}>
-                                {proposal.pass}{" "}
+                                {proposal[0].pass}{" "}
                                 <span
                                     onClick={async () => await handleVote(3)}
                                     className="text-white cursor-pointer hover:text-[#ffbd00] absolute left-[6rem]"

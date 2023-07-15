@@ -5,6 +5,10 @@ module.exports = {
   ],
   theme: {
     extend: {
+      backgroundImage: theme => ({
+        'gradient-radial-at-47-69': `radial-gradient(at 47% 69%, hsla(17,62%,65%,1) 0px, transparent 50%)`,
+        'gradient-radial-at-9-32': `radial-gradient(at 9% 32%, hsla(222,75%,60%,1) 0px, transparent 50%)`
+      })
     },
     colors: {
       "white": "#FFFCFF",
