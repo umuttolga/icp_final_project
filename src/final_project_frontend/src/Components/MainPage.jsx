@@ -69,7 +69,7 @@ const MainPage = () => {
     const container = "bg-[#000]  h-full   w-screen"
     const inputSectionStyle = `${currentProposal ? "" : "mt-[15%]"}`
     const bgImgStyle = "absolute rotate-180"
-    const proposalListStyle = "grid place-items-center grid-flow-row xl:grid-cols-3 gap-8"
+    const proposalListStyle = "items-end grid place-items-center grid-flow-row xl:grid-cols-2 gap-y-12"
     console.log(proposalList)
     return (
         <div className={container}>

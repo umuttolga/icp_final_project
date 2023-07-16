@@ -5,6 +5,7 @@ import { final_project_backend } from '../../../../declarations/final_project_ba
 const ProposalListItems = ({ proposal, index }) => {
     const [loading, setLoading] = useState(true)
     const [voting, setVoting] = useState(false)
+    const [endingProposal, setEndingProposal] = useState(false)
     // const proposal = proposalTotal.proposal
     useEffect(() => {
         if (proposal) {
@@ -13,14 +14,14 @@ const ProposalListItems = ({ proposal, index }) => {
     }, [proposal])
     // Styles
     const customCard =
-        "p-2 backdrop-blur w-[35rem] grid text-[#FFFCFF] items-center h-auto bg-transparent";
+        "p-2 backdrop-blur w-[40em] grid text-[#FFFCFF] items-center h-auto bg-transparent";
     const descStyle = "text-[40px] font-roboto ";
     const cardContainer =
         "grid ml-4 text-[20px] gap-y-4 font-roboto text-white";
     const approveStyle = " text-[#8cb369] font-bold relative";
     const passStyle = "text-[#ffbd00] font-bold relative";
     const rejectStyle = "text-[#ff0054] font-bold relative";
-
+    const endProposalStyle = "grid place-items-end cursor-pointer text-[16px] font-roboto mt-2  "
 
     // Calculate total votes and percentages
     const totalVotes = proposal
@@ -60,6 +61,12 @@ const ProposalListItems = ({ proposal, index }) => {
         // window.location.reload();
         setVoting(false);
     }
+    const handleEndProposal = async () => {
+        setEndingProposal(true)
+        await final_project_backend.end_proposal(index)
+        console.log("Proposal ended!")
+        setEndingProposal(false)
+    }
     return (
         <div>
             <Card cardStyle={customCard}>
@@ -70,36 +77,36 @@ const ProposalListItems = ({ proposal, index }) => {
                             Approve:{" "}
                             <span className={approveStyle}>
                                 {proposal[0].approve}{" "}
-                                <span
+                                {proposal[0].is_active && <span
                                     onClick={async () => await handleVote(1)}
                                     className="text-white cursor-pointer hover:text-[#8cb369] absolute left-[3.5rem]"
                                 >
                                     {voting ? "Voting..." : "Vote"}
-                                </span>
+                                </span>}
                             </span>
                         </span>
                         <span>
                             Reject:{" "}
                             <span className={rejectStyle}>
                                 {proposal[0].reject}{" "}
-                                <span
+                                {proposal[0].is_active && <span
                                     onClick={async () => await handleVote(2)}
                                     className="text-white cursor-pointer hover:text-[#ff0054] absolute left-[5rem]"
                                 >
                                     {voting ? "Voting..." : "Vote"}
-                                </span>
+                                </span>}
                             </span>
                         </span>
                         <span>
                             Pass:{" "}
                             <span className={passStyle}>
                                 {proposal[0].pass}{" "}
-                                <span
+                                {proposal[0].is_active && <span
                                     onClick={async () => await handleVote(3)}
                                     className="text-white cursor-pointer hover:text-[#ffbd00] absolute left-[6rem]"
                                 >
                                     {voting ? "Voting..." : "Vote"}
-                                </span>
+                                </span>}
                             </span>
                         </span>
 
@@ -110,7 +117,15 @@ const ProposalListItems = ({ proposal, index }) => {
                         </div>
                     </div>
                     )}
-
+                <div className={endProposalStyle}>
+                    {proposal[0].is_active ? (
+                        <div onClick={handleEndProposal} className="hover:text-[#ff0054]">{endingProposal ? "Ending Proposal..." : "End Proposal"}</div>
+                    ) : (
+                        <div className="text-[#ff0054]">
+                            Proposal is Incative
+                        </div>
+                    )}
+                </div>
             </Card>
         </div>
     )
