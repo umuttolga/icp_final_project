@@ -9,10 +9,8 @@
     "Canister"
   ],
   "scripts": {
+    "build": "webpack",
     "prebuild": "dfx generate",
-    "start-dfx": "dfx start --background",
-    "deploy-dfx": "dfx deploy",
-    "build": "npm run start-dfx && your-build-command && npm run deploy-dfx",
     "start": "webpack serve --mode development --env development",
     "deploy:local": "dfx deploy --network=local",
     "deploy:ic": "dfx deploy --network=ic",

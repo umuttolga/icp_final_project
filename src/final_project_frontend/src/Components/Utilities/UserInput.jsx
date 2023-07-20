@@ -45,7 +45,7 @@ const Input = styled.input`
 
 const UserInput = ({ onChange, value }) => {
   return (
-    <InputContainer className="w-[35rem] bg-gradient-to-r from-[#6B46C1] to-[#38B2AC]">
+    <InputContainer className="md:w-[35rem] w-[20em]  mb-8 bg-gradient-to-r from-[#6B46C1] to-[#38B2AC]">
       <Label className="mb-2 text-[20px] text-white ml-1 font-mono uppercase font-bold">Create Proposal</Label>
       <Input onChange={onChange} value={value} className="rounded-[60px] p-3 " placeholder="Enter your proposal here..." name="text" type="text" />
     </InputContainer>

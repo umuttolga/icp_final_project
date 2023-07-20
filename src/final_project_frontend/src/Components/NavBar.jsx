@@ -12,10 +12,9 @@ const NavBar = ({ getShowProposal }) => {
     // }, [showProposal]);
     // Styles
     const container = "z-40 backdrop-blur-2xl p-4 grid place-items-center grid-flow-col shadow-2xl sticky top-0"
-    const navBarText = `text-white cursor-pointer font-bold font-roboto text-[32px] flex items-center gap-4 `
+    const navBarText = `text-white cursor-pointer font-bold font-roboto text-[18px] md:text-[32px] flex items-center gap-4 `
     const logoSection = "grid grid-flow-col auto-cols-max gap-4"
     const underlineStyle = `${!showProposal && "underline"}`
-    const underlineStyleProposal = `${showProposal && "underline"}`
     return (
         <div className={container}>
             <div className={logoSection}>

@@ -1,11 +1,18 @@
 import React, { useState, useEffect } from 'react'
 import Card from './Card'
 import { final_project_backend } from '../../../../declarations/final_project_backend'
+import editIcon from "../../../assets/edit.png"
+import confirmIcon from "../../../assets/confrim.png"
+import EditInput from './EditInput'
+
 
 const ProposalListItems = ({ proposal, index }) => {
     const [loading, setLoading] = useState(true)
     const [voting, setVoting] = useState(false)
     const [endingProposal, setEndingProposal] = useState(false)
+    const [editMode, setEditMode] = useState(false);
+    const [editInput, setEditInput] = useState("");
+
     // const proposal = proposalTotal.proposal
     useEffect(() => {
         if (proposal) {
@@ -14,14 +21,17 @@ const ProposalListItems = ({ proposal, index }) => {
     }, [proposal])
     // Styles
     const customCard =
-        "p-2 backdrop-blur w-[40em] grid text-[#FFFCFF] items-center h-auto bg-transparent";
-    const descStyle = "text-[40px] font-roboto ";
+        "p-2 backdrop-blur md:w-[35em] mb-10 w-[20em] grid text-[#FFFCFF] items-center h-auto bg-transparent";
+    const descStyle = "md:text-[28px] font-roboto italic font-semibold";
     const cardContainer =
-        "grid ml-4 text-[20px] gap-y-4 font-roboto text-white";
+        "grid  ml-4 text-[20px] gap-y-4 font-roboto text-white";
     const approveStyle = " text-[#8cb369] font-bold relative";
     const passStyle = "text-[#ffbd00] font-bold relative";
     const rejectStyle = "text-[#ff0054] font-bold relative";
     const endProposalStyle = "grid place-items-end cursor-pointer text-[16px] font-roboto mt-2  "
+    const editIconStyle = "md:w-10 md:h-10 w-6 h-6 cursor-pointer  "
+    const confirmIconStyle = "md:w-10 md:h-10 w-8 h-8 cursor-pointer  "
+
 
     // Calculate total votes and percentages
     const totalVotes = proposal
@@ -67,13 +77,38 @@ const ProposalListItems = ({ proposal, index }) => {
         console.log("Proposal ended!")
         setEndingProposal(false)
     }
+
+    const editProposal = async (count) => {
+
+
+        editInput !== "" && await final_project_backend.edit_proposal(proposalCount, { description: editInput, is_active: true })
+        console.log("EDITTED!!!")
+        setEditMode(false)
+    }
+
+    const handleEditMode = () => {
+        setEditMode(true)
+    }
+
+    // Handle Input
+    const handleEditInput = (e) => {
+        setEditInput(e.target.value)
+    }
+
     return (
         <div>
             <Card cardStyle={customCard}>
                 {loading ? <span>Loading..</span> :
                     (<div className={cardContainer}>
-                        <span className={descStyle}>{proposal[0].description}</span>
-                        <span>
+                        <div className="flex mt-2 justify-between">
+                            {editMode ? (
+                                <div className="py-[6px]">
+                                    <EditInput onChange={handleEditInput} />
+                                </div>
+                            ) : <span className={descStyle}>{proposal ? proposal[0]?.description : "Proposal Loading..."}</span>}
+                            {editMode ? <img onClick={editProposal} className={confirmIconStyle} src={confirmIcon} alt="confirm icon" /> : <img onClick={handleEditMode} className={editIconStyle} src={editIcon} alt="edit icon" />}
+                        </div>
+                        <div>
                             Approve:{" "}
                             <span className={approveStyle}>
                                 {proposal[0].approve}{" "}
@@ -84,7 +119,7 @@ const ProposalListItems = ({ proposal, index }) => {
                                     {voting ? "Voting..." : "Vote"}
                                 </span>}
                             </span>
-                        </span>
+                        </div>
                         <span>
                             Reject:{" "}
                             <span className={rejectStyle}>

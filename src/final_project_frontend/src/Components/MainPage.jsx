@@ -67,25 +67,27 @@ const MainPage = () => {
 
     // Styles
     const container = "bg-[#000]  h-full   w-screen"
-    const inputSectionStyle = `${currentProposal ? "" : "mt-[15%]"}`
-    const bgImgStyle = "absolute rotate-180"
-    const proposalListStyle = "items-end grid place-items-center grid-flow-row xl:grid-cols-2 gap-y-12"
+    const inputSectionStyle = `${currentProposal ? "" : "mt-[10%]"}`
+    // const bgImgStyle = "absolute rotate-180 object-fill h- w-full bg-repeat"
+    const proposalListStyle = "items-end grid place-items-center grid-flow-row xl:grid-cols-2 gap-y-12 "
     console.log(proposalList)
     return (
         <div className={container}>
-            <img className={bgImgStyle} src={bgImg} />
-            <NavBar />
-            {currentProposal && <HeroSection proposalCount={proposalCount} currentProposal={currentProposal} />}
-            <div className={inputSectionStyle}>
-                <RoundProfileSection proposalCount={proposalCount} />
-            </div>
-            <div className={proposalListStyle}>
-                {proposalList.slice(0, -1).map((proposal, index) => (
-                    <ProposalListItems key={index} proposal={proposal} index={index + 1} />
-                ))}
+            <div style={{ backgroundImage: `url(${bgImg})`, backgroundRepeat: 'no-repeat', backgroundSize: 'cover' }}>
+                <NavBar />
+                {currentProposal && <HeroSection proposalCount={proposalCount} currentProposal={currentProposal} />}
+                <div className={inputSectionStyle}>
+                    <RoundProfileSection proposalList={proposalList} currentProposal={currentProposal} proposalCount={proposalCount} />
+                </div>
+                <div className={proposalListStyle}>
 
+                    {proposalList.slice(0, -1).map((proposal, index) => (
+                        <ProposalListItems key={index} proposal={proposal} index={index + 1} />
+                    ))}
+
+                </div>
             </div>
-        </div>
+        </div >
     )
 }
 

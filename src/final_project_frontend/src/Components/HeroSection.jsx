@@ -10,10 +10,10 @@ const HeroSection = ({ currentProposal, proposalCount }) => {
     const containterCard = "mx-4 mt-4 p-4 h-[10rem]  md:w-[30vw] md:h-[15vw] "
     const textStyle = "text-white text-[18px] p-4 grid place-items-center gap-y-4 mt-4"
     const sectionContainer = "md:flex md:gap-x-[20vw] "
-    const customCard = "w-[40vw] "
+    const customCard = "grid place-items-center mt-4"
 
     return (
-        <div className="md:mt-24 mb-10 md:grid  md:place-items-center ">
+        <div className="md:mt-16 mb-10 md:grid  md:place-items-center ">
 
             <div className={sectionContainer}>
                 <div className={customCard}>
