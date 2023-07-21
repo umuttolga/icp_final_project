@@ -81,8 +81,8 @@ const MainPage = () => {
                 </div>
                 <div className={proposalListStyle}>
 
-                    {proposalList.slice(0, -1).map((proposal, index) => (
-                        <ProposalListItems key={index} proposal={proposal} index={index + 1} />
+                    {proposalList.slice(0, -1).reverse().map((proposal, index) => (
+                        <ProposalListItems proposalListLength={proposalList.length} key={index} proposal={proposal} index={index + 1} />
                     ))}
 
                 </div>

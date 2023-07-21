@@ -64,13 +64,20 @@ const ProposalCard = ({ proposal, proposalCount }) => {
 
   // Backend Function Calls
   const handleVote = async (voteId) => {
-    console.warn("handle vote section");
-    console.log("inside handle vote");
-    console.log("count is " + count);
-    console.log("vote id is " + voteId);
+    let userChoice;
+    const handleChoice = () => {
+      if (voteId === 1) {
+        userChoice = { 'Approve': null }
+      } else if (voteId === 2) {
+        userChoice = { 'Reject': null }
+      } else {
+        userChoice = { 'Pass': null }
+      }
+    }
+    handleChoice()
     setVoting(true);
-    console.log("before vote has called");
-    const vote = await final_project_backend.vote(proposalCount, voteId);
+    console.log(userChoice);
+    const vote = await final_project_backend.vote(proposalCount, userChoice);
     console.log("after vote has called");
     console.log(vote);
     window.location.reload();
@@ -86,7 +93,7 @@ const ProposalCard = ({ proposal, proposalCount }) => {
   }
 
   const editProposal = async (count) => {
-    editInput !== "" && await final_project_backend.edit_proposal(proposalCount, { description: editInput, is_active: true })
+    editInput !== "" && await final_project_backend.edit_proposal(proposalCount, { description: editInput, is_active: proposal[0].is_active })
     console.log("EDITTED!!!")
     setEditMode(false)
   }
@@ -115,36 +122,36 @@ const ProposalCard = ({ proposal, proposalCount }) => {
           Approve:{" "}
           <span className={approveStyle}>
             {proposal && proposal[0]?.approve}{" "}
-            <span
+            {proposal && proposal[0].is_active && <span
               onClick={async () => await handleVote(1)}
               className={approveVoteStyle}
             >
               {voting ? "Voting..." : "Vote"}
-            </span>
+            </span>}
           </span>
         </span>
         <span>
           Reject:{" "}
           <span className={rejectStyle}>
             {proposal && proposal[0]?.reject}{" "}
-            <span
+            {proposal && proposal[0].is_active && <span
               onClick={async () => await handleVote(2)}
               className={rejectVoteStyle}
             >
               {voting ? "Voting..." : "Vote"}
-            </span>
+            </span>}
           </span>
         </span>
         <span>
           Pass:{" "}
           <span className={passStyle}>
             {proposal && proposal[0]?.pass}{" "}
-            <span
+            {proposal && proposal[0].is_active && <span
               onClick={async () => await handleVote(3)}
               className={passVoteStyle}
             >
               {voting ? "Voting..." : "Vote"}
-            </span>
+            </span>}
           </span>
         </span>
 

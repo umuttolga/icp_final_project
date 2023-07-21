@@ -6,7 +6,7 @@ import confirmIcon from "../../../assets/confrim.png"
 import EditInput from './EditInput'
 
 
-const ProposalListItems = ({ proposal, index }) => {
+const ProposalListItems = ({ proposal, index, proposalListLength }) => {
     const [loading, setLoading] = useState(true)
     const [voting, setVoting] = useState(false)
     const [endingProposal, setEndingProposal] = useState(false)
@@ -58,30 +58,40 @@ const ProposalListItems = ({ proposal, index }) => {
     const passBarStyle = getBarStyle("#ffbd00", Math.ceil(passPercent));
 
 
-
     const handleVote = async (voteId) => {
-        console.warn("handle vote section");
-        console.log("inside handle vote");
-        console.log("vote id is " + voteId);
+        let userChoice;
+        const handleChoice = () => {
+            if (voteId === 1) {
+                userChoice = { 'Approve': null }
+            } else if (voteId === 2) {
+                userChoice = { 'Reject': null }
+            } else {
+                userChoice = { 'Pass': null }
+            }
+        }
+        handleChoice()
         setVoting(true);
-        console.log("before vote has called");
-        const vote = await final_project_backend.vote(index, voteId);
+        console.log(userChoice);
+        const reverseIndex = proposalListLength - index
+        const vote = await final_project_backend.vote(reverseIndex, userChoice);
         console.log("after vote has called");
         console.log(vote);
-        // window.location.reload();
+        window.location.reload();
         setVoting(false);
     }
     const handleEndProposal = async () => {
+        const reverseIndex = proposalListLength - index
         setEndingProposal(true)
-        await final_project_backend.end_proposal(index)
+        await final_project_backend.end_proposal(reverseIndex)
         console.log("Proposal ended!")
         setEndingProposal(false)
+        window.location.reload()
     }
 
     const editProposal = async (count) => {
 
 
-        editInput !== "" && await final_project_backend.edit_proposal(proposalCount, { description: editInput, is_active: true })
+        editInput !== "" && await final_project_backend.edit_proposal(proposalCount, { description: editInput, is_active: proposal[0].is_active })
         console.log("EDITTED!!!")
         setEditMode(false)
     }
